@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'capstone',
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
+        'NAME': 'skkular1',
+        'USER': 'skkular',
+        'PASSWORD': 'rkdqudwns1',
+        'HOST': 'skkular1.ccis9dczghzd.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
