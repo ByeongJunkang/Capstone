@@ -1,9 +1,1 @@
 # Capstone
-# Capstone
-# Capstone
-# Capstone
-# SKKU
-# SKKU
-# Capstone
-# Capstone
-# capstone
