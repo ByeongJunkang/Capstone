@@ -55,9 +55,13 @@ class Kscholarlistapi(APIView):
 
 
 def index(request):
-    question_list = Question.objects.order_by('-id')
-    context = {'question_list': question_list}
-    return render(request, 'capstone/question_list.html', context)
+    scholars = Kscholar.objects.all()
+    context = {'scholars':scholars}
+    """
+    for obj in scholars:
+        print(obj.date)
+    """
+    return render(request,'capstone/index.html',context)
 
 
 def detail(request, question_id):
