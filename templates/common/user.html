@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'user.css' %}">
+    <link rel="stylesheet" href="{% static 'nav.css' %}">
+
+    <title>skkular</title>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+        <button class="logo" type="button">
+            <a href="{% url 'index1' %}">SKKULAR</a>
+        </button>
+
+
+        <div>
+            <ul>
+                <li class="state">
+                    {% if user.is_authenticated %}
+                    <div class="stateLogout"><a href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a></div>
+
+                    {% else %}
+                    <div class="stateLogin"><a href="{% url 'common:login' %}">로그인</a>
+
+                    {% endif %}
+                </li>
+
+
+                <li class="profile">
+                    {% if user.is_authenticated %}
+                    <div class="userProfile"><a href="{% url 'common:show' %}">프로필</a></div>
+                    {% endif %}
+
+                    {% if not user.is_authenticated %}
+                    <div class="signUp"><a href="{% url 'common:signup' %}">회원가입</a></div>
+                    {% endif %}
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="header">
+        <h3>마이페이지</h3>
+    </div>
+    <!-- 네비게이션바 -->
+
+    <div class="mainContent">
+        <div class="pageTitle">
+            <p>내 정보</p>
+        </div>
+        <table class="userInfo">
+            <tr>
+                <td>이메일</td>
+                {% comment %} <td>skkular@gmail.com</td> {% endcomment %}
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                {% comment %} <td>김명륜</td> {% endcomment %}
+                <td>{{ user.username }}</td>
+            </tr>
+              <tr>
+                <td>학기</td>
+                {% comment %} <td>5학기</td> {% endcomment %}
+                <td>{{ user.semester }}</td>
+            </tr>
+              <tr>
+                <td>지난학기 성적</td>
+                {% comment %} <td>4.5</td> {% endcomment %}
+                <td>{{ user.lastgpa }}</td>
+            </tr>
+              <tr>
+                <td>전체 성적</td>
+                {% comment %} <td>4.0</td> {% endcomment %}
+                <td>{{ user.fullgpa }}</td>
+            </tr>
+              <tr>
+                <td>소득 분위</td>
+                {% comment %} <td>5분위</td> {% endcomment %}
+                <td>{{ user.income }}</td>
+            </tr>
+            <tr>
+                <td>학과</td>
+                {% comment %} <td>경영학과</td> {% endcomment %}
+                <td>{{ user.departments }}</td>
+            </tr>
+              <tr>
+                <td>거주지</td>
+                {% comment %} <td>서울</td> {% endcomment %}
+                <td>{{ user.residence }}</td>
+            </tr>
+          </table>
+          <div class="bottomBtn"><a class="nav-link" href="{% url 'common:profile_update' %}">정보수정</a></div>
+        </div>
+</body>
+</html>

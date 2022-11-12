@@ -1,0 +1,36 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+<!-- 네비게이션바 -->
+<nav class="nav">
+        <div class="container">
+            <button class="logo" type="button">
+                <a href="{% url 'index1' %}">SKKULAR</a>
+            </button>
+
+            <div>
+                <ul>
+                    <li class="state">
+                        {% if user.is_authenticated %}
+                        <div class="stateLogout"><a href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a></div>
+
+                        {% else %}
+                        <div class="stateLogin"><a href="{% url 'common:login' %}">로그인</a>
+
+                        {% endif %}
+                    </li>
+
+
+                    <li class="profile">
+                        {% if user.is_authenticated %}
+                        <div class="userProfile"><a href="{% url 'common:show' %}">프로필</a></div>
+                        {% endif %}
+
+                        {% if not user.is_authenticated %}
+                        <div class="signUp"><a href="{% url 'common:signup' %}">회원가입</a></div>
+                        {% endif %}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+</nav>

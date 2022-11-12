@@ -1,0 +1,95 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+
+     <link rel="stylesheet" href="{% static 'nav.css' %}">
+
+    <title>skkular</title>
+</head>
+
+<body>
+    <!-- 네비게이션바 -->
+     <nav class="navbar">
+        <div class="container">
+            <button class="logo" type="button">
+                <a href="{% url 'index1' %}">SKKULAR</a>
+            </button>
+
+
+            <div>
+                <ul>
+                    <li class="state">
+                        {% if user.is_authenticated %}
+                        <div class="stateLogout"><a href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a></div>
+
+                        {% else %}
+                        <div class="stateLogin"><a href="{% url 'common:login' %}">로그인</a>
+
+                        {% endif %}
+                    </li>
+
+
+                    <li class="profile">
+                        {% if user.is_authenticated %}
+                        <div class="userProfile"><a href="{% url 'common:show' %}">프로필</a></div>
+                        {% endif %}
+
+                        {% if not user.is_authenticated %}
+                        <div class="signUp"><a href="{% url 'common:signup' %}">회원가입</a></div>
+                        {% endif %}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="mainContent">
+        <!-- 네비게이션바 -->
+        <div class="pageTitle">
+            <p>게시글 내용</p>
+        </div>
+        <div class="indexContent">
+            <table class = "table>">
+                <tr>
+                    <th>순번</th>
+                    <th>날짜</th>
+                    <th>제목</th>
+                    <th>부서</th>
+                    {% for scholar in scholars %}
+                </tr>
+                <td class="tableId">
+                    <p>{{scholar.id}}</p>
+                </td>
+        
+                <td class="tableDate">
+                    <p>{{scholar.date}}</p>
+                </td>
+                <td class="tableTitle">
+                    <p><a href="{% url 'scholar' scholar.id %}">{{scholar.title}}</a></p>
+                </td>
+                <td class="tableDepart">
+                    <p>{{scholar.department}}</p>
+                </td>
+            </div>
+    
+            <tr>
+                {% endfor %}
+            </tr>
+        </div>
+    </div>
+
+    </table>
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <!-- Bootstrap JS -->
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+</body>
+</html>

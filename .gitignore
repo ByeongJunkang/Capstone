@@ -1,0 +1,6 @@
+__pycache__/*
+venv/*
+mysite/*
+accounts/*
+.idea/*
+.models.py/*

@@ -1,0 +1,73 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+
+    <title>skkular</title>
+</head>
+
+<body>
+    <div class="header">
+        <h3>장학 공고 리스트</h3>
+    </div>
+    <!-- 네비게이션바 -->
+      <div class="navbar">
+        {% include "navbar.html" %}
+    </div>
+    <div class="mainContent">
+        <div class="pageTitle">
+            <p>게시글 내용</p>
+        </div>
+        <div class="indexContent">
+            <table class = "table>">
+                <tr>
+                    <th>순번</th>
+                    <th>날짜</th>
+                    <th>제목</th>
+                    <th>부서</th>
+                    {% for scholar in scholars %}
+                </tr>
+                <td>
+                    <p>{{scholar.id}}</p>
+                    {% comment %} <p>번호 ID</p>
+                    <p>번호 ID</p> {% endcomment %}
+                </td>
+        
+                <td>
+                    {% comment %} <p>날짜 date</p>
+                    <p>날짜 date</p> {% endcomment %}
+                    <p>{{scholar.date}}</p>
+                </td>
+                <td> 
+                    {% comment %} <p><a href="#">제목 title</a></p>
+                    <p><a href="#">제목 title</a></p> {% endcomment %}
+                    <p><a href="{% url 'scholar' scholar.id %}">{{scholar.title}}</a></p>
+                </td>
+                <td>
+                    {% comment %} <p>부서</p>
+                    <p>부서</p> {% endcomment %}
+                    <p>{{scholar.department}}</p>
+                </td>
+                
+            </div>
+    
+            <tr>
+                {% endfor %}
+            </tr>
+        </div>
+    </div>
+
+    </table>
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <!-- Bootstrap JS -->
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+</body>
+</html>

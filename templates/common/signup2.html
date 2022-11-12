@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-3">
+    <form method="post" action="{% url 'common:signup' %}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+
+
+         <div class="mb-3">
+            <label for="email">총 평점</label>
+            <input type="text" class="form-control" name="fullgpa" id="fullgpa"
+                   value="{{ form.location.value|default_if_none:'' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="email">소득분위</label>
+            <input type="text" class="form-control" name="income" id="income"
+                   value="{{ form.location.value|default_if_none:'' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="email">학과</label>
+            <input type="text" class="form-control" name="departments" id="departments"
+                   value="{{ form.location.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="email">거주지</label>
+            <input type="text" class="form-control" name="residence" id="residence"
+                   value="{{ form.location.value|default_if_none:'' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">생성하기</button>
+    </form>
+</div>
+{% endblock %}

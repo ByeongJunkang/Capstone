@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <table>
+    <tr>
+        <td>이메일</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <td>이름</td>
+        <td>{{ user.username }}</td>
+    </tr>
+      <tr>
+        <td>학기</td>
+        <td>{{ user.semester }}</td>
+    </tr>
+      <tr>
+        <td>지난학기 성적</td>
+        <td>{{ user.lastgpa }}</td>
+    </tr>
+      <tr>
+        <td>전체 성적</td>
+        <td>{{ user.fullgpa }}</td>
+    </tr>
+      <tr>
+        <td>소득 분위</td>
+        <td>{{ user.income }}</td>
+    </tr>
+
+      <tr>
+        <td>부서</td>
+        <td>{{ user.departments }}</td>
+    </tr>
+      <tr>
+        <td>거주지</td>
+        <td>{{ user.residence }}</td>
+    </tr>
+</table>
+ <a class="nav-link" href="{% url 'common:profile_update' %}">정보수정</a>
+</body>
+</html>

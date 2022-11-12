@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+
+    <table class = "table>">
+        <tr>
+            <th>순번</th>
+            <th>날짜</th>
+            <th>제목</th>
+            <th>부서</th>
+            {% for scholar in scholars %}
+        </tr>
+         <td>
+               {{scholar.id}}
+            </td>
+
+        <td>
+            {{scholar.date}}
+        </td>
+         <td> <a href="{% url 'scholar' scholar.id %}">{{scholar.title}}</a>
+
+        </td>
+         <td>
+            {{scholar.department}}
+        </td>
+
+
+        <tr>
+              {% endfor %}
+
+
+        </tr>
+    </table>
+
+
+
+{% endblock %}
+
+
