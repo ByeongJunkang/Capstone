@@ -1,6 +1,8 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from common import views
+from django.conf.urls import include
+
 
 
 app_name = 'common'
@@ -11,6 +13,5 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('show/', views.profile_view, name = 'show'),
     path('show/update/', views.profile_update_view, name='profile_update'),
-
-
+    path('users/', views.UserView.as_view(), name='api_user'),
 ]
