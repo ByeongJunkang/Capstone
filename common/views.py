@@ -36,7 +36,7 @@ class UserView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response( {"user": serializer.data}, status=status.HTTP_201_CREATED)
 
 
 #홈페이지 회원가입
