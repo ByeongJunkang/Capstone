@@ -6,9 +6,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from common.forms import RegisterForm
-
+from .renderers import UserJSONRenderer
 from .forms import CustomCsUserChangeForm
 from .models import User
 from .serializers import UserSerializer
@@ -30,13 +30,17 @@ class RegistrationAPIView(APIView):
 class UserView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
+    renderer_classes = (UserJSONRenderer,)
     def post(self, request):
         user = request.data
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        
+        
+       
 
-        return Response( {"user": serializer.data}, status=status.HTTP_201_CREATED)
+        return Response( serializer.data, status=status.HTTP_201_CREATED)
 
 
 #홈페이지 회원가입
