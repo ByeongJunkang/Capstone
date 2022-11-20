@@ -2,10 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
 from .forms import QuestionForm
-from .models import Kscholar
+from .models import Kscholar,Interscholar
 from rest_framework.views import APIView
-from .serializers import ScholarSerializer
+from .serializers import ScholarSerializer,InterestSerializer
 from rest_framework.response import Response
+from .utils import login_decorator
+from django.views import View
+import json
+from django.http  import JsonResponse
 
 
 
@@ -46,12 +50,7 @@ def scholar_content(request,scholars_id):
     return render(request, 'capstone/content.html', context)
 
 
-class Kscholarlistapi(APIView):
-    def get (self, request):
-        queryset = Kscholar.objects.all()
-        print(queryset)
-        serializer = ScholarSerializer(queryset,many = True)
-        return Response(serializer.data)
+
 
 
 def index(request):
@@ -72,5 +71,36 @@ def detail(request, question_id):
 
 
 
+class Kscholarlistapi(APIView):
+    def get (self, request):
+        queryset = Kscholar.objects.all()
+        print(queryset)
+        serializer = ScholarSerializer(queryset,many = True)
+        print(serializer.data)
+        return Response(serializer.data)
 
 
+class CartView(View):
+    @login_decorator
+    def post (self, request):
+        data = json.loads(request.body)
+        user = request.user
+        product_option_id = data["product_option_id"]
+        print(user)
+        print(product_option_id)
+
+        
+        if Interscholar.objects.filter(user=user, product_option_id=product_option_id).exists():
+            scholar = Interscholar.objects.filter(user=user).get(product_option_id=product_option_id)
+            
+            scholar.save()
+            return JsonResponse({"message": "PRODUCT_QUANTITY_UPDATED"}, status=201)
+
+        Interscholar.objects.create(
+            user              = user,
+            product_option_id = product_option_id,
+        
+            )
+        return JsonResponse({"message": "CART_CREATED"}, status=201)
+
+  

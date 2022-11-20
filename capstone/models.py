@@ -33,3 +33,10 @@ class Kscholar(models.Model):
     department = models.TextField(blank=True, null=True)
 
 
+class Interscholar(models.Model):
+    user           = models.ForeignKey('common.User', on_delete=models.CASCADE)
+    product_option = models.ForeignKey('Kscholar', on_delete=models.CASCADE)
+    
+
+
+
