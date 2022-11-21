@@ -29,10 +29,10 @@ urlpatterns = [
     path('capstone/answer/create/<int:question_id>/', views.answer_create, name='answer_create'),
     path('question/create/', views.question_create, name='question_create'),
     path('', views.scholar_list, name='index1'),
-    path('/<int:scholars_id>/',views.scholar_content,name ='scholar'),# '/' 에 해당되는 path
+    path('<int:scholars_id>/',views.scholar_content,name ='scholar'),# '/' 에 해당되는 path
     path('api/scholar',Kscholarlistapi.as_view()),
     path('scholar', CartView.as_view()),
-
+    
         
 
 ]
