@@ -9,14 +9,14 @@ from .settings import SECRET_KEY
 from common.models import User
 
 
-    
+
 def login_decorator(func):
     @wraps(func)
     def wrapper(self, request, *args, **kwargs):
         try:
             access_token = request.headers.get('Authrozation', None)
             payload      = jwt.decode(access_token, SECRET_KEY, algorithms = 'HS256')
-            user         = User.objects.get(email = payload['username'])
+            user         = User.objects.get(username = payload['username'])
             request.user = user
 
         except jwt.exceptions.DecodeError:

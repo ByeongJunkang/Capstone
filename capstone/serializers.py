@@ -5,7 +5,7 @@ from .models import Kscholar,Interscholar
 class ScholarSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Kscholar
-        fields = ('number','date','title','content','department',)
+        fields = ('id','number','date','title','content','department',)
 
 class InterestSerializer(serializers.ModelSerializer):
     class Meta: 

@@ -84,6 +84,7 @@ class CartView(View):
     @login_decorator
     def post (self, request):
         data = json.loads(request.body)
+        print(data)
         user = request.user
         product_option_id = data["product_option_id"]
         print(user)

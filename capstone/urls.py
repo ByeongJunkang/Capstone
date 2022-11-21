@@ -31,7 +31,7 @@ urlpatterns = [
     path('', views.scholar_list, name='index1'),
     path('/<int:scholars_id>/',views.scholar_content,name ='scholar'),# '/' 에 해당되는 path
     path('api/scholar',Kscholarlistapi.as_view()),
-    path('/scholar', CartView.as_view()),
+    path('scholar', CartView.as_view()),
 
         
 
