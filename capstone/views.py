@@ -81,7 +81,6 @@ class Kscholarlistapi(APIView):
 
 
 class CartView(View):
-    @login_decorator
     def post (self, request):
         data = json.loads(request.body)
         print(data)
