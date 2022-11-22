@@ -10,7 +10,7 @@ from .utils import login_decorator
 from django.views import View
 import json
 from django.http  import JsonResponse
-
+from rest_framework import status
 
 
 
@@ -74,33 +74,49 @@ def detail(request, question_id):
 class Kscholarlistapi(APIView):
     def get (self, request):
         queryset = Kscholar.objects.all()
-        print(queryset)
         serializer = ScholarSerializer(queryset,many = True)
-        print(serializer.data)
+        print(request)
         return Response(serializer.data)
 
 
-class CartView(View):
+class CartView(APIView):
+    def post(self, request):
+        serializer = InterestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED) 
+    
+    
+    def get(self,request):
+            data = Kscholar.objects.filter(id = "34")
+            serializer = ScholarSerializer(data,many = True)
+            return JsonResponse(serializer.data)
+
+
+
+
+
+
+class CartView1(View):
     def post (self, request):
         data = json.loads(request.body)
         print(data)
         user = request.user
-        product_option_id = data["product_option_id"]
+        product_option_id = data["kscholar_id"]
         print(user)
         print(product_option_id)
 
         
         if Interscholar.objects.filter(user=user, product_option_id=product_option_id).exists():
             scholar = Interscholar.objects.filter(user=user).get(product_option_id=product_option_id)
-            
             scholar.save()
-            return JsonResponse({"message": "PRODUCT_QUANTITY_UPDATED"}, status=201)
+            return JsonResponse({"message": "interested_UPDATED"}, status=201)
 
         Interscholar.objects.create(
             user              = user,
             product_option_id = product_option_id,
         
             )
-        return JsonResponse({"message": "CART_CREATED"}, status=201)
+        return JsonResponse({"message": "interested_CREATED"}, status=201)
 
   

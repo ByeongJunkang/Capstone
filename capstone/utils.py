@@ -13,9 +13,9 @@ from common.models import User
 def login_decorator(func):
     def wrapper(self, request, *args, **kwargs):
         try:
-            access_token = request.headers.get('Authorization', None)
-            payload      = jwt.decode(access_token, SECRET_KEY, algorithms=['HS256'])
-            request.user = User.objects.get(id=payload['id'])
+            access = request.COOKIES['access']
+            payload = jwt.decode(access, SECRET_KEY, algorithms=['HS256'])
+            request.user = User.objects.get(id=payload['user_id'])
 
             return func(self, request, *args, **kwargs)
 
