@@ -107,6 +107,12 @@ class CartView(APIView):
 
 
 
+    def delete(self, request):        
+        user = request.data.get('user_id')
+        product = request.data.get('product_option_id')
+        item = Interscholar.objects.filter(user_id = user,product_option_id = product)
+        item.delete()
+        return Response(status.HTTP_201_CREATED) 
 
 
 
