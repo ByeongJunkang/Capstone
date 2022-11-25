@@ -1,3 +1,4 @@
+from typing import List
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
@@ -11,7 +12,10 @@ from django.views import View
 import json
 from django.http  import JsonResponse
 from rest_framework import status
+import jwt
 
+from common.serializers import UserSerializer
+from common.models import User
 
 
 
@@ -88,9 +92,18 @@ class CartView(APIView):
     
     
     def get(self,request):
-            data = Kscholar.objects.filter(id = "34")
+            access = request.COOKIES['access']
+            payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+            pk = payload.get('user_id')
+            
+            data = Interscholar.objects.filter(user_id = pk)
+            abs = []
+            for obj in data:
+                a =(obj.product_option_id)
+                abs.append(a)
+            data = Kscholar.objects.filter(id__in = abs)
             serializer = ScholarSerializer(data,many = True)
-            return JsonResponse(serializer.data)
+            return Response(serializer.data)
 
 
 

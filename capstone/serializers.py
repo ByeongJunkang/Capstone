@@ -10,6 +10,6 @@ class ScholarSerializer(serializers.ModelSerializer):
 class InterestSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Interscholar
-        fields = '__all__'
+        fields = ('user','product_option')
 
     
