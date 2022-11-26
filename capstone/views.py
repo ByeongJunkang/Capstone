@@ -186,7 +186,7 @@ class BertCompareApi(APIView):
                 count+=1
         
             print(i,result,count)
-            if (result == 0 and count != 5):
+            if (result == 0):
                 show.append(i+1)  
         
         data = Berta.objects.filter(id__in = show)
