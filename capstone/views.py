@@ -162,7 +162,6 @@ class BertCompareApi(APIView):
             if(abs[i][0]!= 'None'):
                 if(abs[i][0][0]<=line[0]<=abs[i][0][1]):
                     print("hi")
-                    
                 else:
                     result +=1
                     a = 1
