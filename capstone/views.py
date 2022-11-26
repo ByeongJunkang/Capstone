@@ -147,6 +147,8 @@ class BertCompareApi(APIView):
        
         for i in range(len(abs)):
             result = 0
+            result1,result2,result3,result4,result5 = 0
+            
             count = 0
             
             if(abs[i][0]!= 'None'):
@@ -154,6 +156,7 @@ class BertCompareApi(APIView):
                     print("hi")
                 else:
                     result +=1
+                    result1 +=1
             else:
                 count+=1
             
@@ -161,6 +164,7 @@ class BertCompareApi(APIView):
             if(abs[i][1]!= 'None'):
                 if(float(line[1])<float(abs[i][1])):
                     result +=1
+                    result2+=1
             else:
                 count+=1
         
@@ -168,6 +172,7 @@ class BertCompareApi(APIView):
             if(abs[i][2] != 'None'):
                 if(line[2]<(float(abs[i][2]))):
                     result +=1
+                    result3+=1
             else:
                 count+=1
         
@@ -176,12 +181,14 @@ class BertCompareApi(APIView):
                     print("hi")
                 else:
                     result +=1
+                    result4+=1
             else:
                 count +=1
         
             if(abs[i][4]!='None'):
                 if(abs[i][4].find(line[4]) == -1):
                     result +=1
+                    result5 +=1
             else:
                 count+=1
         
@@ -193,7 +200,7 @@ class BertCompareApi(APIView):
         
         serializer = BertSerializer1(data,many = True)
         
-        return Response(serializer.data)  
+        return Response(serializer.data,{"result1": result1,"result2": result2, "result3":result3,"result4": result4,"result5":result5})
 
 class Bertlistapi1(APIView):
     def get (self, request,pk):
