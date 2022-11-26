@@ -3,9 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
 from .forms import QuestionForm
-from .models import Kscholar,Interscholar
+from .models import Kscholar,Interscholar,Berta
 from rest_framework.views import APIView
-from .serializers import ScholarSerializer,InterestSerializer
+from .serializers import ScholarSerializer,InterestSerializer,BertSerializer,BertSerializer1
 from rest_framework.response import Response
 from .utils import login_decorator
 from django.views import View
@@ -13,10 +13,10 @@ import json
 from django.http  import JsonResponse
 from rest_framework import status
 import jwt
-
+from datetime import datetime
 from common.serializers import UserSerializer
 from common.models import User
-
+import re
 
 
 def answer_create(request, question_id):
@@ -81,6 +81,132 @@ class Kscholarlistapi(APIView):
         serializer = ScholarSerializer(queryset,many = True)
         print(request)
         return Response(serializer.data)
+
+class Kscholarlistapi1(APIView):
+    def get (self, request,pk):
+        queryset = Kscholar.objects.filter(id = pk)
+        serializer = ScholarSerializer(queryset,many = True)
+        print(request)
+        return Response(serializer.data)        
+
+class BertCompareApi(APIView):
+    def get (self, request):   
+        access = request.COOKIES['access']
+        payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+        pk = payload.get('user_id')
+        user = User.objects.get(id = pk)
+        queryset = Berta.objects.all()
+        abs = []
+        line =[]
+        show = []
+        a = (user.semester)
+        semester_number = re.sub(r'[^0-9]', '', a)
+        b= (user.lastgpa)
+       
+        c= float(user.fullgpa)
+        
+        d= (user.income)
+        income_number =re.sub(r'[^0-9]', '', d)
+       
+        e =(user.departments)
+        f= str(datetime.now())
+        line.append(semester_number)
+        line.append(b)
+        line.append(c)
+        line.append(income_number)
+        line.append(e)
+        line.append(f)
+           
+        for obj in queryset:
+            lin =[]
+            a =(obj.con_age)
+            b =(obj.con_bef_score)
+            c=(obj.con_total_score)
+            d =(obj.con_income)
+            e = (obj.con_major)
+            g = (obj.con_end_date)
+            if(a == 'None'):
+                lin.append(a)
+         
+            else:
+                numbers = re.findall(r'\d+', a)
+                lin.append(numbers)
+            lin.append(b)
+            lin.append(c)
+            if(d == 'None'):
+                lin.append(d)
+         
+            else:
+                numbers = re.findall(r'\d+', d)
+                lin.append(numbers)
+            lin.append(e)
+            lin.append(g)
+
+            abs.append(lin)
+
+       
+        for i in range(len(abs)):
+            result = 0
+            count = 0
+            
+            if(abs[i][0]!= 'None'):
+                if(abs[i][0][0]<=line[0]<=abs[i][0][1]):
+                    print("hi")
+                else:
+                    result +=1
+            else:
+                count+=1
+            
+        
+            if(abs[i][1]!= 'None'):
+                if(float(line[1])<float(abs[i][1])):
+                    result +=1
+            else:
+                count+=1
+        
+        
+            if(abs[i][2] != 'None'):
+                if(line[2]<(float(abs[i][2]))):
+                    result +=1
+            else:
+                count+=1
+        
+            if(abs[i][3]!= 'None'):
+                if(abs[i][3][0]<=line[3]<=abs[i][3][1]):
+                    print("hi")
+                else:
+                    result +=1
+            else:
+                count +=1
+        
+            if(abs[i][4]!='None'):
+                if(abs[i][4].find(line[4]) == -1):
+                    result +=1
+            else:
+                count+=1
+        
+            print(i,result,count)
+            if (result == 0 and count != 5):
+                show.append(i+1)  
+        
+        data = Berta.objects.filter(id__in = show)
+        
+        serializer = BertSerializer1(data,many = True)
+        
+        return Response(serializer.data)  
+
+class Bertlistapi1(APIView):
+    def get (self, request,pk):
+        queryset = Berta.objects.filter(id = pk)
+        serializer = BertSerializer(queryset,many = True)
+        print(request)
+        return Response(serializer.data)      
+class Bertlistapi(APIView):
+    def get (self, request):
+        queryset = Berta.objects.all()
+        serializer = BertSerializer(queryset,many = True)
+        print(request)
+        return Response(serializer.data)                     
 
 
 class CartView(APIView):

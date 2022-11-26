@@ -39,4 +39,23 @@ class Interscholar(models.Model):
     
 
 
+class Berta(models.Model) :
+    number = models.CharField(max_length=100)
+    title = models.CharField(max_length=200)
+    date = models.TextField()
+    content = models.TextField()
+    content_revised = models.TextField()
+    attachment_url = models.CharField(max_length=400, blank=True, null=True)
+    attachment_content = models.TextField(blank=True, null=True)
+    content_url = models.CharField(max_length=400)
+    department = models.CharField(max_length=100)
+    con_age = models.CharField(max_length=200, blank=True, null=True)
+    con_bef_score = models.CharField(max_length=200, blank=True, null=True)
+    con_total_score = models.CharField(max_length=200, blank=True, null=True)
+    con_income = models.CharField(max_length=200, blank=True, null=True)
+    con_major = models.CharField(max_length=200, blank=True, null=True)
+    con_where = models.CharField(max_length=200, blank=True, null=True)
+    con_end_date = models.CharField(max_length=200, blank=True, null=True)
+    con_special = models.CharField(max_length=200, blank=True, null=True)
 
+    

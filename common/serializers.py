@@ -30,6 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
           
             )
         return user
-
+    
     
       

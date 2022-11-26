@@ -68,9 +68,6 @@ class UserView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         token = TokenObtainPairSerializer.get_token(user)
-        
-       
-
         return Response( {"user":serializer.data,"token":{token},}, status=status.HTTP_201_CREATED)
 
 

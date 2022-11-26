@@ -92,6 +92,7 @@ DATABASES = {
         'PASSWORD': 'rkdqudwns1',
         'HOST': 'skkular1.ccis9dczghzd.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
+       
     }
 }
 
