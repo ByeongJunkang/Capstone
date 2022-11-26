@@ -204,7 +204,7 @@ class BertCompareApi(APIView):
             print(i,result,count)
             if (result == 0):
                 show.append(i+1)  
-           
+            result1.append(a)          
             result2.append(b)
             result3.append(c)
             result4.append(d)
