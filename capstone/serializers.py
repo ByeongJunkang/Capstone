@@ -1,6 +1,6 @@
 from itertools import product
 from rest_framework import serializers
-from .models import Kscholar,Interscholar,Berta
+from .models import Kscholar,Interscholar,Berta,Favorscholar
 
 class ScholarSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -22,4 +22,7 @@ class BertSerializer1(serializers.ModelSerializer):
         model = Berta
         fields = '__all__'
 
-    
+class FavorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorscholar
+        fields = '__all__'

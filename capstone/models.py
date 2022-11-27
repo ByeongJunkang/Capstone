@@ -36,7 +36,11 @@ class Kscholar(models.Model):
 class Interscholar(models.Model):
     user           = models.ForeignKey('common.User', on_delete=models.CASCADE)
     product_option = models.ForeignKey('Kscholar', on_delete=models.CASCADE)
-    
+
+
+class Favorscholar(models.Model):
+    user           = models.ForeignKey('common.User', on_delete=models.CASCADE)
+    product_option = models.ForeignKey('Berta', on_delete=models.CASCADE)
 
 
 class Berta(models.Model) :

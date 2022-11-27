@@ -3,9 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
 from .forms import QuestionForm
-from .models import Kscholar,Interscholar,Berta
+from .models import Kscholar,Interscholar,Berta,Favorscholar
 from rest_framework.views import APIView
-from .serializers import ScholarSerializer,InterestSerializer,BertSerializer,BertSerializer1
+from .serializers import ScholarSerializer,InterestSerializer,BertSerializer,BertSerializer1,FavorSerializer
 from rest_framework.response import Response
 from .utils import login_decorator
 from django.views import View
@@ -228,6 +228,26 @@ class Bertlistapi(APIView):
         serializer = BertSerializer(queryset,many = True)
         print(request)
         return Response(serializer.data)                     
+
+
+class FavorView(APIView):
+    def post(self, request):
+        serializer = FavorSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data , status.HTTP_201_CREATED)
+
+    def get(self, request):
+            data = Favorscholar.objects.filter(user_id = 9)
+            abs = []
+            for obj in data:
+                a =(obj.product_option_id)
+                abs.append(a)
+            data = Berta.objects.filter(id__in = abs)
+            serializer = BertSerializer(data,many = True)
+            return Response(serializer.data)
+
+
 
 
 class CartView(APIView):
