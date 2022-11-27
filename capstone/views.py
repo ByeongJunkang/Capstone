@@ -238,7 +238,10 @@ class FavorView(APIView):
         return Response(serializer.data , status.HTTP_201_CREATED)
 
     def get(self, request):
-            data = Favorscholar.objects.filter(user_id = 9)
+            access = request.COOKIES['access']
+            payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+            pk = payload.get('user_id')
+            data = Favorscholar.objects.filter(user_id = pk)
             abs = []
             for obj in data:
                 a =(obj.product_option_id)
