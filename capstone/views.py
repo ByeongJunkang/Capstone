@@ -232,10 +232,10 @@ class Bertlistapi(APIView):
 
 class CartView(APIView):
     def post(self, request):
-        serializer = InterestSerializer(data=request.data)
+        serializer = InterestSerializer(data = request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status.HTTP_201_CREATED) 
+            serializer.save() 
+        return Response(serializer.data, status.HTTP_201_CREATED) 
     
     
     def get(self,request):
