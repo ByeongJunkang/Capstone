@@ -62,7 +62,10 @@ class RegisterAPIView(APIView):
 class UpdateProfile(APIView): 
   
     def put(self, request):
-            profile = User.objects.get(id = 1)
+            access = request.COOKIES['access']
+            payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+            pk = payload.get('user_id')
+            profile = User.objects.get(id = pk)
             
             serializer = UserProfileUpdate(profile, data = request.data,partial = True)
             
