@@ -166,8 +166,7 @@ class BertCompareApi(APIView):
                     result +=1
                     a = 1
                    
-            else:
-                count+=1
+            
             
         
             if(abs[i][1]!= 'None'):
@@ -201,14 +200,17 @@ class BertCompareApi(APIView):
             else:
                 count+=1
         
-            print(i,result,count)
+           
+            
             if (result == 0):
-                show.append(i+1)  
+                show.append(i+73) 
+            
             result1.append(a)          
             result2.append(b)
             result3.append(c)
             result4.append(d)
             result5.append(e)
+        
         data = Berta.objects.filter(id__in = show).order_by('-date')
         
         serializer = BertSerializer1(data,many = True)
