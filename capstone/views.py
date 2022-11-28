@@ -209,7 +209,7 @@ class BertCompareApi(APIView):
             result3.append(c)
             result4.append(d)
             result5.append(e)
-        data = Berta.objects.filter(id__in = show)
+        data = Berta.objects.filter(id__in = show).order_by('-date')
         
         serializer = BertSerializer1(data,many = True)
         
@@ -224,7 +224,7 @@ class Bertlistapi1(APIView):
         return Response(serializer.data)      
 class Bertlistapi(APIView):
     def get (self, request):
-        queryset = Berta.objects.all()
+        queryset = Berta.objects.all().order_by('-date')
         serializer = BertSerializer(queryset,many = True)
         print(request)
         return Response(serializer.data)                     
@@ -281,7 +281,6 @@ class DeleteFavor(APIView):
         access = request.COOKIES['access']
         payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
         pk1 = payload.get('user_id')
-        
         object = Favorscholar.objects.filter(user_id = pk1, product_option = pk)
         object.delete()
         return Response(status.HTTP_202_ACCEPTED) 
