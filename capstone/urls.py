@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from capstone import views
-from .views import Kscholarlistapi,CartView,Bertlistapi,Bertlistapi1,Kscholarlistapi1,BertCompareApi,FavorView
+from .views import Kscholarlistapi,CartView,Bertlistapi,Bertlistapi1,Kscholarlistapi1,BertCompareApi,FavorView,DeleteFavor
 
 
 app_name = 'capstone'
@@ -34,7 +34,8 @@ urlpatterns = [
     path('api/scholar/<int:pk>/',Kscholarlistapi1.as_view()),
     path('api/bert/<int:pk>/',Bertlistapi1.as_view()),
     path('api/bert/',Bertlistapi.as_view()),
-    path('scholar', CartView.as_view()),
+    path('scholar/', CartView.as_view()),
+    path('scholar/<int:pk>/', DeleteFavor.as_view()),
     path('favorscholar/',FavorView.as_view()),
     path('api/bertcmp/',BertCompareApi.as_view()),
     

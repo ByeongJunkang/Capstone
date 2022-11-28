@@ -276,13 +276,17 @@ class CartView(APIView):
             return Response(serializer.data)
 
 
-
-    def delete(self, request):        
-        user = request.data.get('user_id')
-        product = request.data.get('product_option_id')
-        item = Interscholar.objects.filter(user_id = user,product_option_id = product)
-        item.delete()
-        return Response(status.HTTP_201_CREATED) 
+class DeleteFavor(APIView):
+      def delete(self, request, pk):         
+        access = request.COOKIES['access']
+        payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+        pk1 = payload.get('user_id')
+        
+        object = Favorscholar.objects.filter(user_id = pk1, product_option = pk)
+        object.delete()
+        return Response(status.HTTP_202_ACCEPTED) 
+  
+        
 
 
 

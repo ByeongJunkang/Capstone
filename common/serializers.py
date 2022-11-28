@@ -30,6 +30,19 @@ class UserSerializer(serializers.ModelSerializer):
           
             )
         return user
+
+
+
+
+
+class UserProfileUpdate(serializers.ModelSerializer):
+
+    class Meta:
+        model =User
+        fields = ['residence','departments','semester','lastgpa','fullgpa','income']
+
+
+
     
     
       

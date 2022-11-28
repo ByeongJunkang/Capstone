@@ -2,16 +2,17 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes,authentication_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer,TokenRefreshSerializer
 from common.forms import RegisterForm
 from .renderers import UserJSONRenderer
 from .forms import CustomCsUserChangeForm
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer,UserProfileUpdate
 import jwt
 from capstone.settings import SECRET_KEY
 from rest_framework import viewsets
@@ -56,7 +57,22 @@ class RegisterAPIView(APIView):
             res.set_cookie("refresh", refresh_token, httponly=True)
             
             return res
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)           
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateProfile(APIView): 
+  
+    def put(self, request):
+            profile = User.objects.get(id = 1)
+            
+            serializer = UserProfileUpdate(profile, data = request.data,partial = True)
+            
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)    
+            
+            return Response(data='INFO_INVALID', status=400)
+        
+           
 # Create your views here.
 class UserView(APIView):
     permission_classes = (AllowAny,)

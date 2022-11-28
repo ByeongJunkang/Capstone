@@ -12,6 +12,8 @@ class InterestSerializer(serializers.ModelSerializer):
         model = Interscholar
         fields = ('user','product_option')
 
+
+
 class BertSerializer(serializers.ModelSerializer):
     class Meta:
         model = Berta

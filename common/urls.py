@@ -19,6 +19,7 @@ urlpatterns = [
     path('show/update/', views.profile_update_view, name='profile_update'),
     path('users/', views.RegisterAPIView.as_view(), name='api_user'),
     path("auth/", views.AuthAPIView.as_view()),
+    path("auth/update/",views.UpdateProfile.as_view()),
     path("auth/refresh/", TokenRefreshView.as_view()),
     path("", include(router.urls)),
 
