@@ -1,4 +1,5 @@
 from typing import List
+from settings import SECRET_KEY
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
@@ -92,7 +93,7 @@ class Kscholarlistapi1(APIView):
 class BertCompareApi(APIView):
     def get (self, request):   
         access = request.COOKIES['access']
-        payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+        payload = jwt.decode(access, SECRET_KEY, algorithms=['HS256'])
         pk = payload.get('user_id')
         user = User.objects.get(id = pk)
         queryset = Berta.objects.all()
@@ -241,7 +242,7 @@ class FavorView(APIView):
 
     def get(self, request):
             access = request.COOKIES['access']
-            payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+            payload = jwt.decode(access, SECRET_KEY, algorithms=['HS256'])
             pk = payload.get('user_id')
             data = Favorscholar.objects.filter(user_id = pk)
             abs = []
@@ -265,7 +266,7 @@ class CartView(APIView):
     
     def get(self,request):
             access = request.COOKIES['access']
-            payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+            payload = jwt.decode(access, SECRET_KEY, algorithms=['HS256'])
             pk = payload.get('user_id')
             
             data = Interscholar.objects.filter(user_id = pk)
@@ -281,7 +282,7 @@ class CartView(APIView):
 class DeleteFavor(APIView):
       def delete(self, request, pk):         
         access = request.COOKIES['access']
-        payload = jwt.decode(access, 'django-insecure-e!mjafckg!d4-7sn424q2w188$-&ie-+qs+=petrmp)r)0@b+v', algorithms=['HS256'])
+        payload = jwt.decode(access, SECRET_KEY, algorithms=['HS256'])
         pk1 = payload.get('user_id')
         object = Favorscholar.objects.filter(user_id = pk1, product_option = pk)
         object.delete()
